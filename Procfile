@@ -1,1 +1,1 @@
-web: npm start
+web: node guru/boot.js
