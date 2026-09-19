@@ -1,6 +1,6 @@
 // ════════════════════════════════════════════════════════════════════════════
-//  ULTRA GURU MD — Bot Entry Point
-//  by GuruTech | github.com/GuruhTech
+//  BLACK PANTHER MD — Bot Entry Point
+//  by Koyoteh | github.com/koyoteh
 // ════════════════════════════════════════════════════════════════════════════
 
 "use strict";
@@ -9,17 +9,6 @@
 require("events").EventEmitter.defaultMaxListeners = 960;
 if (!globalThis.crypto) globalThis.crypto = require("crypto").webcrypto;
 try { if (typeof File === "undefined") globalThis.File = require("buffer").File; } catch (_) {}
-
-// ─── Crash visibility ─────────────────────────────────────────────────────────
-// Nothing in this app previously caught unhandled rejections or uncaught
-// exceptions, so a stray throw during boot (e.g. from a DB call) could vanish
-// with zero log output instead of showing up here. These make that impossible.
-process.on("unhandledRejection", (reason) => {
-    console.error("❌ [UNHANDLED REJECTION]", reason?.stack || reason);
-});
-process.on("uncaughtException", (err) => {
-    console.error("❌ [UNCAUGHT EXCEPTION]", err?.stack || err);
-});
 
 // ─── Node & Third-Party ──────────────────────────────────────────────────────
 const path    = require("path");
@@ -164,7 +153,7 @@ function startExpiryWatchdog() {
             async (msg) => {
                 global._licenceExpired = true;
                 console.warn("[EXPIRY] ⛔ Licence expired — commands locked.");
-                await notifyOwner(`⛔ *ULTRA GURU MD — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
+                await notifyOwner(`⛔ *BLACK PANTHER MD — LICENCE EXPIRED*\n\n${msg}\n\n_Commands are locked. Renew your licence to continue._`);
             },
             async (warnMsg) => notifyOwner(warnMsg),
         );
@@ -178,58 +167,19 @@ function startExpiryWatchdog() {
 // ════════════════════════════════════════════════════════════════════════════
 
 async function initDatabase() {
-    await withTimeout(syncDatabase(), 30_000, "syncDatabase");
-    console.log("… syncDatabase done");
-
-    await withTimeout(initializeSettings(), 30_000, "initializeSettings");
-    console.log("… initializeSettings done");
-
-    await withTimeout(initializeGroupSettings(), 30_000, "initializeGroupSettings");
-    console.log("… initializeGroupSettings done");
-
-    botSettings = await withTimeout(getAllSettings(), 30_000, "getAllSettings");
-    console.log("… getAllSettings done");
-}
-
-// Generic timeout wrapper: rejects with a labeled error if `promise` doesn't
-// settle in time, instead of letting a stuck DB/network call hang forever
-// with no log output.
-function withTimeout(promise, ms, label) {
-    return Promise.race([
-        promise,
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error(`[TIMEOUT] ${label} did not complete within ${ms / 1000}s`)), ms)
-        ),
-    ]);
+    await syncDatabase();
+    await initializeSettings();
+    await initializeGroupSettings();
+    botSettings = await getAllSettings();
 }
 
 // ════════════════════════════════════════════════════════════════════════════
 //  BOT BOOT
 // ════════════════════════════════════════════════════════════════════════════
 
-// ════════════════════════════════════════════════════════════════════════════
-//  WA VERSION FETCH — with timeout
-// ════════════════════════════════════════════════════════════════════════════
-// fetchLatestWaWebVersion() has no built-in timeout. If the network call
-// stalls (blocked egress, DNS issue, slow endpoint), the whole startGuru()
-// chain hangs silently forever — no error, no log, no retry. This wraps it
-// in a timeout so a stall instead throws and falls into the existing
-// catch-and-retry logic below.
-const WA_VERSION_FETCH_TIMEOUT_MS = 15_000;
-
-async function fetchWaVersionWithTimeout() {
-    const timeout = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error(`WA version fetch timed out after ${WA_VERSION_FETCH_TIMEOUT_MS / 1000}s`)), WA_VERSION_FETCH_TIMEOUT_MS)
-    );
-    const { version } = await Promise.race([fetchLatestWaWebVersion(), timeout]);
-    return version;
-}
-
 async function startGuru() {
     try {
-        console.log("🕗 Fetching WhatsApp Web version...");
-        const version = await fetchWaVersionWithTimeout();
-        console.log(`✅ Using WA Web version: ${version.join(".")}`);
+        const { version }        = await fetchLatestWaWebVersion();
         const sessionDbPath      = path.join(SESSION_DIR, "session.db");
         const { state, saveCreds } = await useSQLiteAuthState(sessionDbPath);
 
@@ -247,29 +197,6 @@ async function startGuru() {
         GuruSocket            = makeWASocket(socketConfig);
         global._botSocket     = GuruSocket;
         store.bind(GuruSocket.ev);
-
-        // ── Track the bot's own outgoing message IDs ────────────────────────
-        // In a self-chat, every message the bot sends to itself arrives back
-        // through the same event stream with fromMe:true — identical to a
-        // genuine command the owner typed. Command handlers that match on
-        // message body (like the "$" shell-exec and ">" eval commands) need
-        // a way to ignore the bot's own echoes without also ignoring real
-        // owner input, so we tag sent IDs here and let handlers check them.
-        global._botSentIds = global._botSentIds || new Set();
-        const _origSendMessage = GuruSocket.sendMessage.bind(GuruSocket);
-        GuruSocket.sendMessage = async (...args) => {
-            const result = await _origSendMessage(...args);
-            const id = result?.key?.id;
-            if (id) {
-                global._botSentIds.add(id);
-                // Keep the set small — only recent sends matter
-                if (global._botSentIds.size > 500) {
-                    const first = global._botSentIds.values().next().value;
-                    global._botSentIds.delete(first);
-                }
-            }
-            return result;
-        };
 
         // Persist credentials on update
         GuruSocket.ev.process(async (events) => {
@@ -345,17 +272,16 @@ async function sendStartupMessage(socket, s) {
         const expLine        = await expiryLine().catch(() => "✅ Active");
 
         const msg = [
-            `*✅ ${botName} — ONLINE*`,
-            ``,
-            `📊 *Plugins*  : ${totalCommands}`,
-            `⚡ *Prefix*   : ${s.PREFIX || d.PREFIX}`,
-            `⚙️ *Mode*     : ${modeLabel}`,
-            `🔒 *Licence*  : ${expLine}`,
-            `📲 *Telegram* : t.me/GURU_TECHLAB`,
-            ``,
-            `> ✨ _${s.CAPTION || d.CAPTION}_`,
-            `> _Allow a few seconds to sync._`,
-        ].join("\n");
+    `╭━━⟮ ⚡ ${botName} ⟯━━┈⊷`,
+    `┃ 🟢 Status  : ✅ ONLINE`,
+    `┃ 📊 Plugins : ${totalCommands}`,
+    `┃ 📌 Prefix  : ${s.PREFIX || d.PREFIX}`,
+    `┃ 🌐 Mode    : ${modeLabel}`,
+    `┃ ⏳ Licence : ${expLine}`,
+    `╰━━⟮ ✦ ᴘᴏᴡᴇʀᴇᴅ ʙʏ ʟᴜᴋᴀʙʀᴀɴᴅ ✦ ⟯━━┈⊷`,
+    ``,
+    `> _Allow a few seconds to sync._`,
+].join("\n");
 
         const destJid = jidNormalizedUser(socket.user.id);
         let ctx = {};
@@ -380,24 +306,8 @@ async function sendStartupMessage(socket, s) {
     startExpiryWatchdog();
     startCleanup();
 
-    try {
-        console.log("… loadSession starting");
-        const sessionResult = await withTimeout(loadSession(), 30_000, "loadSession");
-        console.log("… loadSession done");
+    await loadSession();
+    await initDatabase();
 
-        if (sessionResult === null) {
-            // No SESSION_ID set yet — web server stays alive for pairing.
-            // The process will keep running; set SESSION_ID in Replit Secrets and restart.
-            console.log("ℹ️  Bot is paused — set SESSION_ID in Replit Secrets then restart.");
-            return;
-        }
-
-        console.log("… initDatabase starting");
-        await initDatabase();
-        console.log("… initDatabase done — starting bot");
-
-        startGuru();
-    } catch (err) {
-        console.error("❌ [BOOTSTRAP FAILED]", err?.stack || err);
-    }
+    startGuru();
 })();
