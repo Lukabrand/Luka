@@ -1,9 +1,9 @@
 'use strict';
-const { addCmd }                = require('../../guru/handlers/loader');
-const { getGroupSettings, setGroupSetting, addWarning, getWarnings, clearWarnings, saveNote, getNote, getAllNotes, deleteNote } = require('../../guru/db/database');
-const { cleanJid, numberToJid } = require('../../guru/utils/helpers');
-const config                    = require('../../guru/config/settings');
-const { channelCtx }            = require('../../guru/utils/gmdFunctions2');
+const { addCmd }                = require('../../luka/handlers/loader');
+const { getGroupSettings, setGroupSetting, addWarning, getWarnings, clearWarnings, saveNote, getNote, getAllNotes, deleteNote } = require('../../luka/db/database');
+const { cleanJid, numberToJid } = require('../../luka/utils/helpers');
+const config                    = require('../../luka/config/settings');
+const { channelCtx }            = require('../../luka/utils/gmdFunctions2');
 
 // ── Helper: resolve mention/reply to a JID ───────────────────────
 function resolveTarget(ctx) {
