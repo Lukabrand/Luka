@@ -5,8 +5,8 @@
 // ╚══════════════════════════════════════════════════════════════╝
 
 const axios = require('axios');
-const { addCmd } = require('../../guru/handlers/loader');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { addCmd } = require('../../luka/handlers/loader');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
 
 const DC_BASE = 'https://apis.davidcyril.name.ng';
 const TIMEOUT = 60_000;
