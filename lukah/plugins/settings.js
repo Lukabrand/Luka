@@ -553,7 +553,7 @@ addCmd({
                 `⚡ *Response :* ${ms}ms\n` +
                 `🧠 *Memory  :* ${Math.round(mem.heapUsed / 1024 / 1024)}MB / ${Math.round(mem.heapTotal / 1024 / 1024)}MB\n` +
                 `⏱️ *Uptime   :* ${days}d ${hours}h ${mins}m\n` +
-                `🖥️ *Platform :* ${require('../../guru/utils/logger').PLATFORM}\n` +
+                `🖥️ *Platform :* ${require('../../luka/utils/logger').PLATFORM}\n` +
                 `🤖 *Version  :* ${config.BOT_VERSION}\n\n` +
                 `_${config.BOT_NAME}_`,
             edit: sent.key,
