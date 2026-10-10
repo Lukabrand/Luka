@@ -5,9 +5,9 @@
 //                id, runtime, afk, unafk, encode, decode, 8ball
 // ╚══════════════════════════════════════════════════════════════╝
 
-const { addCmd }     = require('../../guru/handlers/loader');
-const config         = require('../../guru/config/settings');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { addCmd }     = require('../../luka/handlers/loader');
+const config         = require('../../luka/config/settings');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
 
 const BOT_START = Date.now();
 
