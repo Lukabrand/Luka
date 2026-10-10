@@ -1,9 +1,9 @@
 'use strict';
-const { addCmd } = require('../../guru/handlers/loader');
-const config     = require('../../guru/config/settings');
-const { pickRandom } = require('../../guru/utils/helpers');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
-const { guruApi }    = require('../../guru/utils/guruApi');
+const { addCmd } = require('../../luka/handlers/loader');
+const config     = require('../../luka/config/settings');
+const { pickRandom } = require('../../luka/utils/helpers');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
+const { guruApi }    = require('../../luka/utils/guruApi');
 
 // ── 8-Ball ─────────────────────────────────────────────────────
 const BALL_RESPONSES = [
