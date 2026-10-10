@@ -1,9 +1,9 @@
 'use strict';
-const { addTrigger }            = require('../../guru/handlers/loader');
-const { getGroupSettings }      = require('../../guru/db/database');
-const { cleanJid }              = require('../../guru/utils/helpers');
-const config                    = require('../../guru/config/settings');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { addTrigger }            = require('../../luka/handlers/loader');
+const { getGroupSettings }      = require('../../luka/db/database');
+const { cleanJid }              = require('../../luka/utils/helpers');
+const config                    = require('../../luka/config/settings');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
 
 const LINK_REGEX = /https?:\/\/|chat\.whatsapp\.com\/|wa\.me\//i;
 
