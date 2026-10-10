@@ -3,7 +3,7 @@ const fs     = require('fs');
 const path   = require('path');
 const config = require('../config/settings');
 
-const PLUGINS_DIR = path.join(__dirname, '../../guruh/plugins');
+const PLUGINS_DIR = path.join(__dirname, '../../lukah/plugins');
 
 const commands = new Map();
 const triggers  = [];
@@ -66,7 +66,7 @@ function buildPluginCtx(ctx) {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  FLAT PLUGIN LOADER — CJS files in guruh/plugins/ root
+//  FLAT PLUGIN LOADER — CJS files in lukah/plugins/ root
 // ═══════════════════════════════════════════════════════════
 
 function loadPlugins() {
