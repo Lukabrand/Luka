@@ -1,8 +1,8 @@
 'use strict';
-const { addCmd }                                      = require('../../guru/handlers/loader');
+const { addCmd }                                      = require('../../luka/handlers/loader');
 const { getTopCmds, getCmdStat, getTotalUses,
-        resetCmdStats }                               = require('../../guru/db/database');
-const config                                          = require('../../guru/config/settings');
+        resetCmdStats }                               = require('../../luka/db/database');
+const config                                          = require('../../luka/config/settings');
 
 const MEDALS = ['🥇', '🥈', '🥉'];
 const BAR_FILLED  = '█';
