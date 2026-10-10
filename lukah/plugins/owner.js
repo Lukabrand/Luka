@@ -1,10 +1,10 @@
 'use strict';
-const { addCmd }                          = require('../../guru/handlers/loader');
-const { getStatusReport }                 = require('../../guru/utils/statusEngine');
-const { addSudo, removeSudo, getSudoList, isSudo, setSetting, getSetting } = require('../../guru/db/database');
-const { numberToJid, cleanJid }           = require('../../guru/utils/helpers');
-const config                              = require('../../guru/config/settings');
-const { channelCtx, sendButtons }         = require('../../guru/utils/gmdFunctions2');
+const { addCmd }                          = require('../../luka/handlers/loader');
+const { getStatusReport }                 = require('../../luka/utils/statusEngine');
+const { addSudo, removeSudo, getSudoList, isSudo, setSetting, getSetting } = require('../../luka/db/database');
+const { numberToJid, cleanJid }           = require('../../luka/utils/helpers');
+const config                              = require('../../luka/config/settings');
+const { channelCtx, sendButtons }         = require('../../luka/utils/gmdFunctions2');
 const { execSync }                        = require('child_process');
 const fs                                  = require('fs');
 const path                                = require('path');
