@@ -87,7 +87,7 @@ function loadPlugins() {
 }
 
 // ═══════════════════════════════════════════════════════════
-//  SUBDIR PLUGIN LOADER — ESM files in guruh/plugins/*/
+//  SUBDIR PLUGIN LOADER — ESM files in lukah/plugins/*/
 // ═══════════════════════════════════════════════════════════
 
 async function loadSubdirPlugins() {
