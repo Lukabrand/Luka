@@ -4,10 +4,10 @@
 //   Owner control for the Status Manager
 // ╰─────────────────────────────────────────╯
 
-const { addCmd }                    = require('../../luka/handlers/loader');
+const { addCmd }                    = require('../../guru/handlers/loader');
 const { getAutoStatusSettings }     = require('../statusManager');
-const { channelCtx }                = require('../../luka/utils/gmdFunctions2');
-const config                        = require('../../luka/config/settings');
+const { channelCtx }                = require('../../guru/utils/gmdFunctions2');
+const config                        = require('../../guru/config/settings');
 
 // Initialise global runtime flags if not set
 if (!global.autoStatusFlags) {

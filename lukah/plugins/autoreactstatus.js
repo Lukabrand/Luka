@@ -1,9 +1,9 @@
 'use strict';
 
-const db             = require('../../luka/db/database');
+const db             = require('../../guru/db/database');
 const { getBotName } = require('../botname');
-const { addCmd }     = require('../../luka/handlers/loader');
-const config         = require('../../luka/config/settings');
+const { addCmd }     = require('../../guru/handlers/loader');
+const config         = require('../../guru/config/settings');
 
 const CONFIG_DB_KEY = 'autoreact_config';
 const DEFAULT_REACT_CONFIG = {
