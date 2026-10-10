@@ -51,12 +51,6 @@
       "description": "Command prefix character (e.g., ., !, /)",
       "required": false,
       "value": "."
-    
-    },
-    "EXPIRY_DATE": {
-      "description": "Optional bot licence expiry date in YYYY-MM-DD format. Leave blank for no expiry.",
-      "required": false,
-      "value": ""
     },
     "DATABASE_URL": {
       "description": "PostgreSQL connection URL. Leave blank to use auto-provisioned Heroku Postgres, or supply your own (Neon, Supabase, etc.). Falls back to SQLite if empty.",
