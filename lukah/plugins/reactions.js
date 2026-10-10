@@ -6,8 +6,8 @@
 
 const axios   = require('axios');
 const { Sticker, StickerTypes } = require('wa-sticker-formatter');
-const { addCmd } = require('../../guru/handlers/loader');
-const config    = require('../../guru/config/settings');
+const { addCmd } = require('../../luka/handlers/loader');
+const config    = require('../../luka/config/settings');
 
 /**
  * Fetch a random image for the given waifu.pics SFW endpoint
