@@ -1,9 +1,9 @@
 'use strict';
-const { addCmd } = require('../../guru/handlers/loader');
+const { addCmd } = require('../../luka/handlers/loader');
 const axios      = require('axios');
-const config     = require('../../guru/config/settings');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
-const { sendButtons } = require('../../guru/utils/gmdFunctions2');
+const config     = require('../../luka/config/settings');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
+const { sendButtons } = require('../../luka/utils/gmdFunctions2');
 
 // ── Profile picture ───────────────────────────────────────────
 addCmd({
