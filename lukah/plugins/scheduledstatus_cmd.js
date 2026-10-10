@@ -22,13 +22,13 @@
 //    daily / weekly (e.g. "14:30 daily Hello world")
 // ╚══════════════════════════════════════════════════════════════╝
 
-const { addCmd }        = require('../../guru/handlers/loader');
-const config            = require('../../guru/config/settings');
-const logger            = require('../../guru/utils/logger');
-const { channelCtx }    = require('../../guru/utils/gmdFunctions2');
-const { db }            = require('../../guru/db/database');
+const { addCmd }        = require('../../luka/handlers/loader');
+const config            = require('../../luk/config/settings');
+const logger            = require('../../luka/utils/logger');
+const { channelCtx }    = require('../../luka/utils/gmdFunctions2');
+const { db }            = require('../../luka/db/database');
 const { downloadMediaMessage, getContentType } = require('@whiskeysockets/baileys');
-const { getSocket }     = require('../../guru/handlers/connection');
+const { getSocket }     = require('../../luka/handlers/connection');
 
 // ── Create table ─────────────────────────────────────────────────
 db.exec(`
