@@ -33,10 +33,10 @@ require('dotenv').config();
 const express  = require('express');
 const http     = require('http');
 const path     = require('path');
-const config   = require('./guru/config/settings');
-const logger   = require('./guru/utils/logger');
-const { startBot }                              = require('./guru/handlers/connection');
-const { checkExpiry, startExpiryWatchdog, scheduleHardExpiry, fmtDate, fmtCountdown } = require('./guru/utils/expiry');
+const config   = require('./luka/config/settings');
+const logger   = require('./luka/utils/logger');
+const { startBot }                              = require('./luka/handlers/connection');
+const { checkExpiry, startExpiryWatchdog, scheduleHardExpiry, fmtDate, fmtCountdown } = require('./luka/utils/expiry');
 
 let expiryInfo = { active: true, daysLeft: null, expiryDate: null };
 
@@ -44,7 +44,7 @@ let expiryInfo = { active: true, daysLeft: null, expiryDate: null };
 const app = express();
 
 // Serve public/ folder statically — index.html lives here
-app.use(express.static(path.join(__dirname, 'guru/GuruTech/public')));
+app.use(express.static(path.join(__dirname, 'luka/LukaTech/public')));
 
 // Bot status page (/)
 app.get('/status', (_, res) => {
@@ -130,7 +130,7 @@ process.on('unhandledRejection', (err) => logger.error('UNHANDLED', err?.message
         exitOnExpiry: true,
         onExpire: async (msg, expiryDate) => {
             try {
-                const { getSocket } = require('./guru/handlers/connection');
+                const { getSocket } = require('./luka/handlers/connection');
                 const sock = getSocket && getSocket();
                 if (sock?.user?.id) {
                     const selfNum = sock.user.id.split(':')[0].split('@')[0];
@@ -151,7 +151,7 @@ process.on('unhandledRejection', (err) => logger.error('UNHANDLED', err?.message
     startExpiryWatchdog(
         async (msg, expiryDate) => {
             try {
-                const { getSocket } = require('./guru/handlers/connection');
+                const { getSocket } = require('./luka/handlers/connection');
                 const sock = getSocket && getSocket();
                 if (sock?.user?.id) {
                     const selfNum = sock.user.id.split(':')[0].split('@')[0];
@@ -166,7 +166,7 @@ process.on('unhandledRejection', (err) => logger.error('UNHANDLED', err?.message
         },
         async (warnMsg, daysLeft, expiryDate) => {
             try {
-                const { getSocket } = require('./guru/handlers/connection');
+                const { getSocket } = require('./luka/handlers/connection');
                 const sock = getSocket && getSocket();
                 if (sock?.user?.id) {
                     const selfNum = sock.user.id.split(':')[0].split('@')[0];
@@ -182,7 +182,7 @@ process.on('unhandledRejection', (err) => logger.error('UNHANDLED', err?.message
     // ── Hard expiry: kills bot at exact millisecond ───────────
     scheduleHardExpiry(async (msg, expiryDate) => {
         try {
-            const { getSocket } = require('./guru/handlers/connection');
+            const { getSocket } = require('./luka/handlers/connection');
             const sock = getSocket && getSocket();
             if (sock?.user?.id) {
                 const selfNum = sock.user.id.split(':')[0].split('@')[0];
