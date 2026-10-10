@@ -7,4 +7,4 @@
 //   Do NOT put business logic here — edit the real module instead.
 // ╰─────────────────────────────────────────────────────────────╯
 
-module.exports = require('../guru/handlers/statusManager');
+module.exports = require('../luka/handlers/statusManager');
