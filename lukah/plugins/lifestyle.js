@@ -5,12 +5,12 @@
 //  🏋️  Fitness · Sleep · Water · Affirmation · Personality
 // ╚══════════════════════════════════════════════════════════════╝
 
-const { addCmd } = require('../../guru/handlers/loader');
+const { addCmd } = require('../../luka/handlers/loader');
 const axios      = require('axios');
-const config     = require('../../guru/config/settings');
+const config     = require('../../luka/config/settings');
 const moment     = require('moment-timezone');
-const { pickRandom } = require('../../guru/utils/gmdFunctions');
-const { channelCtx } = require('../../guru/utils/gmdFunctions2');
+const { pickRandom } = require('../../luka/utils/gmdFunctions');
+const { channelCtx } = require('../../luka/utils/gmdFunctions2');
 
 function now(fmt) { return moment().tz(config.TIME_ZONE).format(fmt); }
 
