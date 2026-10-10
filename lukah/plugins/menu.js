@@ -11,7 +11,7 @@ const _readmore = _more.repeat(4001);
 
 const { addCmd, addTrigger, getAllCmds } = require('../../luka/handlers/loader');
 const { gmdProgress, runtime, fmtBytes } = require('../../luka/utils/gmdFunctions');
-const { daysUntil, fmtDate, parseExpiryDate, fmtCountdown, expiryBar, expiryLine } = require('../../guru/utils/expiry');
+const { daysUntil, fmtDate, parseExpiryDate, fmtCountdown, expiryBar, expiryLine } = require('../../luka/utils/expiry');
 const { channelCtx } = require('../../luka/utils/gmdFunctions2');
 const config = require('../../luka/config/settings');
 const moment = require('moment-timezone');
