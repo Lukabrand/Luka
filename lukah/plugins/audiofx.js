@@ -4,7 +4,7 @@
 //   FFmpeg audio effects (ported from Vesper)
 // ╰─────────────────────────────────────────╯
 
-const { addCmd }               = require('../../guru/handlers/loader');
+const { addCmd }               = require('../../luka/handlers/loader');
 const { downloadMediaMessage } = require('@whiskeysockets/baileys');
 const ffmpeg                   = require('fluent-ffmpeg');
 const ffmpegPath               = require('ffmpeg-static');
