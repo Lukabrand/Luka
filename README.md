@@ -17,7 +17,7 @@
 <p align="center">
     <strong>2. GET SESSION ID</strong>
     <br>
-    <a href="https://lukapair.onrender.com/pair" target="_blank">
+    <a href="https://lukapair.up.railway.app/pair" target="_blank">
         <img alt="WEBSITE" src="https://img.shields.io/badge/Pair-100000?style=for-the-badge&logo=scan&logoColor=white&labelColor=green&color=green"/>
     </a>
 </p>
